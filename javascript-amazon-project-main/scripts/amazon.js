@@ -1,3 +1,6 @@
+import {cart} from "../data/carts.js"
+import {products} from "../data/products.js"
+
 function productStore(product) {
   return ` <div class="product-container">
           <div class="product-image-container">
