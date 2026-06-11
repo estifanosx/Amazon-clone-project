@@ -1,6 +1,6 @@
 import { cart, addToCart } from "../data/carts.js";
 import { products } from "../data/products.js";
-
+import { moneyStore } from "./utils/money.js";
 function productStore(product) {
   return ` <div class="product-container">
           <div class="product-image-container">
@@ -22,7 +22,7 @@ function productStore(product) {
           </div>
 
           <div class="product-price">
-           $${(product.priceCents / 100).toFixed(2)}
+           $${moneyStore(product.priceCents)}
           </div>
 
           <div class="product-quantity-container">
