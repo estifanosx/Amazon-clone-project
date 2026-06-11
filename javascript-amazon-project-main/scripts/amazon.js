@@ -1,5 +1,5 @@
-import {cart} from "../data/carts.js"
-import {products} from "../data/products.js"
+import { cart, addToCart } from "../data/carts.js";
+import { products } from "../data/products.js";
 
 function productStore(product) {
   return ` <div class="product-container">
@@ -62,37 +62,25 @@ document.querySelector(".js-product-container").innerHTML = productHtml;
 
 // Make the code ineteractive
 
+function updateQuantity(Update) {
+  let cartQuantity = 0;
+
+  cart.forEach((item) => {
+    cartQuantity += item.quantity;
+  });
+  document.querySelector(".js-cart-quantity").innerHTML = cartQuantity;
+}
 document.querySelectorAll(".js-add-to-cart").forEach((button) => {
   button.addEventListener("click", () => {
-    
-   
     const productId = button.dataset.productId;
     const container = button.closest(".product-container");
     const quantity = Number(
       container.querySelector(".js-quantity-selector").value,
     );
-const message = container.querySelector(".js-added-to-cart")
-message.style.opacity ="1"
-    let matchingItem;
-    cart.forEach((item) => {
-      if (productId === item.productId) {
-        matchingItem = item;
-      }
-    });
+    const message = container.querySelector(".js-added-to-cart");
+    message.style.opacity = "1";
 
-    if (matchingItem) {
-      matchingItem.quantity += quantity;
-    } else {
-      cart.push({
-        productId: productId,
-        quantity: quantity,
-      });
-    }
-    let cartQuantity = 0;
-
-    cart.forEach((item) => {
-      cartQuantity += item.quantity;
-    });
-    document.querySelector(".js-cart-quantity").innerHTML = cartQuantity;
+    addToCart(productId, quantity); // add new cart
+    updateQuantity(); // update the cart
   });
 });
